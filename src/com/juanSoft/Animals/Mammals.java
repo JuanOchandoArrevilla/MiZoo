@@ -16,4 +16,5 @@ public class Mammals extends Animals {
         this.diet = diet;
     }
 
+
 }
