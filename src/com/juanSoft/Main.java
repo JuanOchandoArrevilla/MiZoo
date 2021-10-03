@@ -8,9 +8,9 @@ public class Main {
     public static void main(String[] args) {
 
 
-            ManageZoo p = new ManageZoo();
+            ManageZoo zoo = new ManageZoo();
 
-            System.out.println(p);
+            System.out.println(zoo);
 
 
     }

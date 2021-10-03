@@ -7,32 +7,41 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ManageZoo {
+        private int amountSpace;
+        ArrayList<String>cages = new ArrayList<String>();
+        private int nameCage ;
+        private int indexCage = -1;
+        private int numAnimals;
+
+    public int getNumAnimals() {
+        return numAnimals;
+    }
+
+
+        public int getAmountSpace() {
+        return amountSpace;
+    }
 
     public ManageZoo() {
         Scanner sc = new Scanner(System.in);
         System.out.println("cuantos metros quieres para el zologico virtual ?");
-        int amountSpace = sc.nextInt();
+         amountSpace = sc.nextInt();
         System.out.println("cuantos animales quieres en el zoologico virtual?");
-        int numAnimals = sc.nextInt();
+        numAnimals = sc.nextInt();
 
+        createAnimals();
 
-      createAnimals(amountSpace,numAnimals);
-
+        showData();
         sc.close();
     }
 
-    public void createAnimals(int amountSpace,int numAnimals) {
+    public void createAnimals() {
         String name;
         String gender;
-        ArrayList<String> mammals = new ArrayList<>();
-        ArrayList<String> birds = new ArrayList<>();
-        ArrayList<String> reptiles = new ArrayList<>();
         ArrayList<String> males = new ArrayList<>();
         ArrayList<String> females = new ArrayList<>();
-        for (int i = 0; i < numAnimals; i++) {
-
+        for (int i = 0; i < getNumAnimals(); i++) {
             int random = (int) (Math.random() * 3) + 1;
-
             if (random == 1) {
                 name = randomName();
                 gender = randomGender();
@@ -42,8 +51,6 @@ public class ManageZoo {
                 } else {
                     females.add(name + " Mammal " + gender);
                 }
-
-
             } else if (random == 2) {
                 name = randomName();
                 gender = randomGender();
@@ -53,8 +60,6 @@ public class ManageZoo {
                 } else {
                     females.add(name + " Bird " + gender);
                 }
-
-
             } else {
                 name = randomName();
                 gender = randomGender();
@@ -67,8 +72,7 @@ public class ManageZoo {
 
             }
         }
-
-            createCage(amountSpace,males,females);
+        organizeAnimals(males,females);
     }
 
     public String randomName() {
@@ -87,16 +91,11 @@ public class ManageZoo {
     }
 
 
-    public void createCage(int amountSpace,ArrayList<String> males,ArrayList<String> females) {
+    public void organizeAnimals(ArrayList<String> males,ArrayList<String> females) {
         ArrayList<String> Mammals = new ArrayList<String>();
         ArrayList<String> Birds = new ArrayList<String>();
         ArrayList<String> Reptiles = new ArrayList<String>();
 
-
-        ArrayList<String>cages = new ArrayList<String>();
-        for (int i = 1; i <=amountSpace ; i++) {
-            cages.add("cage "+ i + ":");
-        }
 
         for (int i = 0; i <males.size() ; i++) {
             if (males.get(i).contains("Mammal")) {
@@ -106,8 +105,6 @@ public class ManageZoo {
             } else {
                 Reptiles.add(males.get(i));
             }
-
-
         }
 
             int countMamals = -1;
@@ -127,44 +124,62 @@ public class ManageZoo {
                          }
 
              } else if (females.get(i).contains("Bird")) {
-                if(Birds.isEmpty()) {
+                 if(Birds.isEmpty()) {
                     Birds.add(females.get(i));
                     break;
                 }
                  countBirds++;
 
-                    if(Birds.size() > countBirds) {
+                 if(Birds.size() > countBirds) {
                         Birds.set(countBirds, Birds.get(countBirds) + " pareja con " + females.get(i));
-                    }else {
+                 }else {
                         Birds.add(females.get(i));
                     }
 
-             } else if (females.get(i).contains("Reptile")) {
+             }  else if (females.get(i).contains("Reptile")) {
                 if(Reptiles.isEmpty()) {
                     Reptiles.add(females.get(i));
                     break;
                 }
-
-                 countRaptiles++;
-
+                countRaptiles++;
                  if(Reptiles.size() > countRaptiles) {
                      Reptiles.set(countRaptiles, Reptiles.get(countRaptiles) + " pareja con " + females.get(i));
                  }else {
                      Reptiles.add(females.get(i));
                  }
             }
-    }
+        }
+          createCage();
+
         for (String s: Mammals) {
-            System.out.println(s);
+            addAnimal(s);
         }
         for (String s: Birds) {
-            System.out.println(s);
+            addAnimal(s);
         }
         for (String s: Reptiles) {
-            System.out.println(s);
+            addAnimal(s);
         }
 
 
-}
+    }
 
+
+    public void createCage() {
+        for (int i = 1; i <= getAmountSpace(); i++) {
+            cages.add("cage " + i + ":");
+        }
+    }
+
+    public void showData() {
+        for (String s:cages) {
+            System.out.println(s);
+        }
+    }
+
+    public void addAnimal(String animal) {
+         nameCage++;
+         indexCage++;
+        cages.set(indexCage,"cage " +  nameCage + ":" + animal);
+    }
 }
