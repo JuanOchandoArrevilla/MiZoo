@@ -1,6 +1,5 @@
 package com.juanSoft;
 
-import com.juanSoft.Animals.Mammals;
 import com.juanSoft.Manage.ManageZoo;
 
 public class Main {
@@ -11,7 +10,6 @@ public class Main {
             ManageZoo zoo = new ManageZoo();
 
             System.out.println(zoo);
-
 
     }
 }

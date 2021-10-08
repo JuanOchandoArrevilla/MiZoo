@@ -1,34 +1,35 @@
 package com.juanSoft.Manage;
 
-import com.juanSoft.Animals.TypeMammals.Cats;
-import com.juanSoft.Animals.TypeMammals.Dogs;
-import com.juanSoft.Animals.TypeMammals.Horses;
-import com.juanSoft.Animals.TypesBirds.Geese;
-import com.juanSoft.Animals.TypesBirds.Ostriches;
-import com.juanSoft.Animals.TypesBirds.Parakeets;
-import com.juanSoft.Animals.TypesReptiles.Anacondas;
-import com.juanSoft.Animals.TypesReptiles.Cobras;
-import com.juanSoft.Animals.TypesReptiles.Crocodiles;
-
+import com.juanSoft.Animals.Animal;
+import com.juanSoft.Animals.Birds.Bird;
+import com.juanSoft.Animals.Mammals.Cats;
+import com.juanSoft.Animals.Mammals.Dogs;
+import com.juanSoft.Animals.Mammals.Horses;
+import com.juanSoft.Animals.Mammals.Mammal;
+import com.juanSoft.Animals.Birds.Geese;
+import com.juanSoft.Animals.Birds.Ostriches;
+import com.juanSoft.Animals.Birds.Parakeets;
+import com.juanSoft.Animals.Reptiles.Anacondas;
+import com.juanSoft.Animals.Reptiles.Cobras;
+import com.juanSoft.Animals.Reptiles.Crocodiles;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ManageZoo {
-        private int amountSpace;
-        ArrayList<String>cages = new ArrayList<String>();
-        ArrayList<String> Dogs = new ArrayList<>();
-        ArrayList<String> Cats = new ArrayList<>();
-        ArrayList<String> Horses = new ArrayList<>();
-        ArrayList<String> Geeses = new ArrayList<>();
-        ArrayList<String> Ostriches = new ArrayList<>();
-        ArrayList<String> Parakeet = new ArrayList<>();
-        ArrayList<String> Anacondas = new ArrayList<>();
-        ArrayList<String> Cobras = new ArrayList<>();
-        ArrayList<String> Crocodiles = new ArrayList<>();
-
-        private int nameCage ;
-        private int indexCage = -1;
-        private int numAnimals;
+    private int amountSpace;
+    ArrayList<String> cages = new ArrayList<>();
+    ArrayList<String> dogs = new ArrayList<>();
+    ArrayList<String> cats = new ArrayList<>();
+    ArrayList<String> horses = new ArrayList<>();
+    ArrayList<String> geeses = new ArrayList<>();
+    ArrayList<String> ostriches = new ArrayList<>();
+    ArrayList<String> parakeets = new ArrayList<>();
+    ArrayList<String> anacondas = new ArrayList<>();
+    ArrayList<String> cobras = new ArrayList<>();
+    ArrayList<String> crocodiles = new ArrayList<>();
+    private int nameCage ;
+    private int indexCage = -1;
+    private int numAnimals;
 
     public int getNumAnimals() {
         return numAnimals;
@@ -41,141 +42,129 @@ public class ManageZoo {
     public ManageZoo() {
         Scanner sc = new Scanner(System.in);
         System.out.println("cuantos metros quieres para el zologico virtual ?");
-         amountSpace = sc.nextInt();
+        amountSpace = sc.nextInt();
         System.out.println("cuantos animales quieres en el zoologico virtual?");
         numAnimals = sc.nextInt();
 
-            try {
-                createAnimals();
-                showDataZoo();
-            }catch(IndexOutOfBoundsException e ) {
-                System.out.println("error: las caracteristicas admitidas son icorrecta");
-            }
+        try {
+            createAnimals();
+            showDataZoo();
+        }catch(IndexOutOfBoundsException e ) {
+            System.out.println("error: las caracteristicas admitidas son icorrecta");
+        }
 
         sc.close();
     }
 
     public void createAnimals() {
         String name;
-        String gender;
+        Animal.gender gender;
         ArrayList<String> females = new ArrayList<>();
         for (int i = 0; i < getNumAnimals(); i++) {
             int random = (int) (Math.random() * 9) + 1;
 
             switch(random) {
                 case 1:
-                    name = randomName();
-                    gender = randomGender();
-                    Dogs dog = new Dogs(name, 1, gender, 2.5, "nocturnos", 50, "Carnivoro");
-                    if (gender == "Male") {
-                         Dogs.add(name + " Dog " + gender);
+                    name = Animal.randomName();
+                    gender =  Animal.randomGender();
+                    Dogs dog = new Dogs(name, ((int)(Math.random() * 9) + 1), gender, (Math.random() * 50) + 1, Mammal.habits.NOCTURNOS,
+                            ((int)(Math.random() * 30) + 1), Mammal.diet.CARNIVORO);
+
+                    if (Animal.gender.MALES == gender) {
+                        dogs.add(name + " Dog " + gender );
                     } else {
                         females.add(name + " Dog " + gender);
                     }
+
                     break;
                 case 2:
-                    name = randomName();
-                    gender = randomGender();
-                    Cats cat = new Cats(name, 2, gender, 2.5, "nocturnos", 50, "Carnivoro");
-                    if (gender == "Male") {
-                        Cats.add(name + " Cat " + gender);
+                    name = Animal.randomName();
+                    gender = Animal.randomGender();
+                    Cats cat = new Cats(name, ((int)(Math.random() * 9) + 1), gender, (Math.random() * 50) + 1,
+                            Mammal.habits.NOCTURNOS, ((int)(Math.random() * 30) + 1), Mammal.diet.CARNIVORO);
+                    if (Animal.gender.MALES == gender) {
+                      cats.add(name + " Cat " + gender);
                     } else {
                         females.add(name + " Cat " + gender);
                     }
                     break;
                 case 3:
-                    name = randomName();
-                    gender = randomGender();
-                    Horses horse = new Horses(name, 4, gender, 2.5, "diurnos", 30, "Carnivoro");
-                    if (gender == "Male") {
-                        Horses.add(name + " Horse " + gender);
+                    name = Animal.randomName();
+                    gender = Animal.randomGender();
+                    Horses horse = new Horses(name, ((int)(Math.random() * 9) + 1), gender, (Math.random() * 50) + 1,
+                            Mammal.habits.DIURNOS, ((int)(Math.random() * 30) + 1), Mammal.diet.CARNIVORO);
+                    if (Animal.gender.MALES == gender) {
+                        horses.add(name + " Horse " + gender);
                     } else {
                         females.add(name + " Horse " + gender);
                     }
                     break;
                 case 4:
-                    name = randomName();
-                    gender = randomGender();
-                    Geese goose = new Geese(name, 2, gender, 7.9, "azul", "garra");
-                    if (gender == "Male") {
-                        Geeses.add(name + " Goose " + gender);
+                    name = Animal.randomName();
+                    gender = Animal.randomGender();
+                    Geese goose = new Geese(name, ((int)(Math.random() * 9) + 1), gender, 7.9, "azul", Bird.legType.GARRA);
+                    if (Animal.gender.MALES == gender) {
+                        geeses.add(name + " Goose " + gender);
                     } else {
                         females.add(name + " Goose " + gender);
                     }
                     break;
                 case 5:
-                    name = randomName();
-                    gender = randomGender();
-                    Ostriches Ostrich = new Ostriches(name, 2, gender, 1.5, "blanco", "garra");
-                    if (gender == "Male") {
-                        Ostriches.add(name + " Ostrich " + gender);
+                    name = Animal.randomName();
+                    gender = Animal.randomGender();
+                    Ostriches Ostrich = new Ostriches(name, ((int)(Math.random() * 9) + 1), gender, 1.5, "blanco", Bird.legType.GARRA);
+                    if (Animal.gender.MALES == gender) {
+                        ostriches.add(name + " Ostrich " + gender);
                     } else {
                         females.add(name + " Ostrich " + gender);
                     }
                     break;
                 case 6:
-                    name = randomName();
-                    gender = randomGender();
-                    Parakeets Parakeets = new Parakeets(name, 5, gender, 1.5, "blanco", "garra");
-                    if (gender == "Male") {
-                        Parakeet.add(name + " Parakeet " + gender);
+                    name = Animal.randomName();
+                    gender = Animal.randomGender();
+                    Parakeets Parakeet = new Parakeets(name, ((int)(Math.random() * 9) + 1), gender, 1.5, "blanco", Bird.legType.PALMIPEDA);
+                    if (Animal.gender.MALES == gender) {
+                        parakeets.add(name + " Parakeet " + gender);
                     } else {
                         females.add(name + " Parakeet " + gender);
                     }
                     break;
                 case 7:
-                    name = randomName();
-                    gender = randomGender();
-                    Anacondas Anaconda = new Anacondas(randomName(), 10, randomGender(), 25, "verde", 50);
-                    if (gender == "Male") {
-                        Anacondas.add(name + " Anaconda " + gender);
+                    name = Animal.randomName();
+                    gender = Animal.randomGender();
+                    Anacondas Anaconda = new Anacondas( name, ((int)(Math.random() * 9) + 1), gender, 25, "verde", 50);
+                    if (Animal.gender.MALES == gender) {
+                        anacondas.add(name + " Anaconda  " + gender);
                     } else {
-                        females.add(name + " Anaconda" + gender);
+                        females.add(name + " Anaconda " + gender);
                     }
                     break;
                 case 8:
-                    name = randomName();
-                    gender = randomGender();
-                    Cobras Cobra = new Cobras(randomName(), 5, randomGender(), 25, "negro", 30);
-                    if (gender == "Male") {
-                        Cobras.add(name + " Cobra " + gender);
+                    name = Animal.randomName();
+                    gender = Animal.randomGender();
+                    Cobras Cobra = new Cobras( name, ((int)(Math.random() * 9) + 1), gender, 25, "negro", 30);
+                    if (Animal.gender.MALES == gender) {
+                        cobras.add(name + " Cobra " + gender);
                     } else {
                         females.add(name + "  Cobra " + gender);
                     }
                     break;
                 case 9:
-                    name = randomName();
-                    gender = randomGender();
-                    Crocodiles Crocodile = new Crocodiles(randomName(), 5, randomGender(), 25, "negro", 50);
-                    if (gender == "Male") {
-                        Crocodiles.add(name + " Crocodile " + gender);
+                    name = Animal.randomName();
+                    gender = Animal.randomGender();
+                    Crocodiles Crocodile = new Crocodiles( name, ((int)(Math.random() * 9) + 1), gender, 25, "negro", 50);
+                    if (Animal.gender.MALES == gender) {
+                        crocodiles.add(name + " Crocodile " + gender);
                     } else {
                         females.add(name + "  Crocodile " + gender);
                     }
                     break;
             }
 
-
         }
         organizeAnimals(females);
     }
 
-
-
-    public String randomName() {
-        String[] animalsName = {"chiquito", "Mango", "Tifón", "Chimuelo", "Yogu", "Carajito", "Yasuo", "Brego", "Mikasa", "Misifú",
-                "Bley", "Hammer", "Jojo", "Manitas", "Wachin", "MaxiBon", "Bodoque", "Itachi", "Mariko", "Estrella", "El bicho", "Tarradellas"};
-        int random = (int) (Math.random() * animalsName.length);
-        String name = animalsName[random];
-        return name;
-    }
-
-    public String randomGender() {
-        String[] gender = {"Male", "Female"};
-        int random = (int) (Math.random() * gender.length);
-        String selectGender = gender[random];
-        return selectGender;
-    }
 
     public void organizeAnimals(ArrayList<String> females) {
 
@@ -192,113 +181,119 @@ public class ManageZoo {
         for (int i = 0; i < females.size() ; i++) {
 
             if(females.get(i).contains("Dog")) {
-                  if(Dogs.isEmpty()) {
-                        Dogs.add(females.get(i));
+                  if(dogs.isEmpty()) {
+                        dogs.add(females.get(i));
+                        countDog++;
                         continue;
                      }
                     countDog++;
-                  if(Dogs.size() > countDog) {
-                    Dogs.set(countDog, Dogs.get(countDog) + " pareja con " + females.get(i));
-                  }else {
-                     Dogs.add(females.get(i));
+                  if(dogs.size() > countDog) {
+                          dogs.set(countDog, dogs.get(countDog) + " pareja con " + females.get(i));
+                  } else {
+                      dogs.add(females.get(i));
                   }
-
             } else if (females.get(i).contains("Cat")) {
-                if(Cats.isEmpty()) {
-                    Cats.add(females.get(i));
+                if(cats.isEmpty()) {
+                    countCat++;
+                    cats.add(females.get(i));
                     continue;
                 }
                 countCat++;
-
-                if(Cats.size() > countCat) {
-                    Cats.set(countCat, Cats.get(countCat) + " pareja con " + females.get(i));
-                }else {
-                    Cats.add(females.get(i));
+                if(cats.size() > countCat) {
+                        cats.set(countCat, cats.get(countCat) + " pareja con " + females.get(i));
+                } else {
+                        cats.add(females.get(i));
                 }
 
-
             }  else if (females.get(i).contains("Horse")) {
-                if(Horses.isEmpty()) {
-                    Horses.add(females.get(i));
+                if(horses.isEmpty()) {
+                    horses.add(females.get(i));
+                    countHorse++;
                     continue;
                 }
                 countHorse++;
-                if(Horses.size() > countHorse) {
-                    Horses.set(countHorse, Horses.get(countHorse) + " pareja con " + females.get(i));
+                if(horses.size() > countHorse) {
+                    horses.set(countHorse, horses.get(countHorse) + " pareja con " + females.get(i));
                 }else {
-                    Horses.add(females.get(i));
+                    horses.add(females.get(i));
                 }
 
             } else if (females.get(i).contains("Goose")) {
-                 if(Geeses.isEmpty()) {
-                        Geeses.add(females.get(i));
+                 if(geeses.isEmpty()) {
+                        countGoose++;
+                        geeses.add(females.get(i));
                         continue;
                     }
                     countGoose++;
-                 if(Geeses.size() > countGoose) {
-                    Geeses.set(countGoose, Geeses.get(countGoose) + " pareja con " + females.get(i));
+                 if(geeses.size() > countGoose) {
+                    geeses.set(countGoose, geeses.get(countGoose) + " pareja con " + females.get(i));
                  }else {
-                    Geeses.add(females.get(i));
+                    geeses.add(females.get(i));
                 }
 
             } else if (females.get(i).contains("Ostrich")) {
-                if(Ostriches.isEmpty()) {
-                    Ostriches.add(females.get(i));
+                if(ostriches.isEmpty()) {
+                    countOstrich++;
+                    ostriches.add(females.get(i));
                     continue;
                 }
                 countOstrich++;
-                if(Ostriches.size() > countOstrich) {
-                    Ostriches.set(countOstrich, Ostriches.get(countOstrich) + " pareja con " + females.get(i));
+                if(ostriches.size() > countOstrich) {
+                    ostriches.set(countOstrich, ostriches.get(countOstrich) + " pareja con " + females.get(i));
                 }else {
-                    Ostriches.add(females.get(i));
+                    ostriches.add(females.get(i));
                 }
 
             } else if (females.get(i).contains("Parakeet")) {
-                if(Parakeet.isEmpty()) {
-                    Parakeet.add(females.get(i));
+                if(parakeets.isEmpty()) {
+                    parakeets.add(females.get(i));
+                    countParakeet++;
                     continue;
                 }
                 countParakeet++;
-                if(Parakeet.size() > countParakeet) {
-                    Parakeet.set(countParakeet, Parakeet.get(countParakeet) + " pareja con " + females.get(i));
+                if(parakeets.size() > countParakeet) {
+                    parakeets.set(countParakeet, parakeets.get(countParakeet) + " pareja con " + females.get(i));
                 }else {
-                    Parakeet.add(females.get(i));
+                    parakeets.add(females.get(i));
                 }
 
             } else if (females.get(i).contains("Anaconda")) {
-                if(Anacondas.isEmpty()) {
-                    Anacondas.add(females.get(i));
+                if(anacondas.isEmpty()) {
+                    countAnaconda++;
+                    anacondas.add(females.get(i));
                     continue;
                 }
                 countAnaconda++;
-                if(Anacondas.size() > countAnaconda) {
-                    Anacondas.set(countAnaconda, Anacondas.get(countAnaconda) + " pareja con " + females.get(i));
+                if(anacondas.size() > countAnaconda) {
+                    anacondas.set(countAnaconda, anacondas.get(countAnaconda) + " pareja con " + females.get(i));
                 }else {
-                    Anacondas.add(females.get(i));
+                    anacondas.add(females.get(i));
                 }
 
             } else if (females.get(i).contains("Cobra")) {
-                if(Cobras.isEmpty()) {
-                    Cobras.add(females.get(i));
+                if(cobras.isEmpty()) {
+                    cobras.add(females.get(i));
+                    countCobra++;
                     continue;
                 }
                 countCobra++;
-                if(Cobras.size() > countCobra) {
-                    Cobras.set(countCobra, Cobras.get(countCobra) + " pareja con " + females.get(i));
+                if(cobras.size() > countCobra) {
+                    cobras.set(countCobra, cobras.get(countCobra) + " pareja con " + females.get(i));
                 }else {
-                    Cobras.add(females.get(i));
+                    cobras.add(females.get(i));
                 }
 
             } else if (females.get(i).contains("Crocodile")) {
-                if(Crocodiles.isEmpty()) {
-                    Crocodiles.add(females.get(i));
+                if(crocodiles.isEmpty()) {
+                    crocodiles.add(females.get(i));
+                    countCrocodile++;
                     continue;
                 }
                 countCrocodile++;
-                if(Crocodiles.size() > countCrocodile) {
-                    Crocodiles.set(countCrocodile, Crocodiles.get(countCrocodile) + " pareja con " + females.get(i));
+                if(crocodiles.size() > countCrocodile) {
+                    crocodiles.set(countCrocodile, crocodiles.get(countCrocodile) + " pareja con " + females.get(i));
                 }else {
-                    Crocodiles.add(females.get(i));
+                    crocodiles.add(females.get(i));
                 }
             }
 
@@ -312,39 +307,39 @@ public class ManageZoo {
 
     private void lookAnimal() {
 
-        for (String s: Dogs) {
+        for (String s: dogs) {
             addAnimalZoo(s);
         }
 
-        for (String s: Cats) {
+        for (String s: cats) {
             addAnimalZoo(s);
         }
 
-        for (String s: Horses) {
+        for (String s: horses) {
             addAnimalZoo(s);
         }
 
-        for (String s: Geeses) {
+        for (String s: geeses) {
             addAnimalZoo(s);
         }
 
-        for (String s: Ostriches) {
+        for (String s: ostriches) {
             addAnimalZoo(s);
         }
 
-        for (String s: Parakeet) {
+        for (String s: parakeets) {
             addAnimalZoo(s);
         }
 
-        for (String s: Anacondas) {
+        for (String s: anacondas) {
             addAnimalZoo(s);
         }
 
-        for (String s: Cobras) {
+        for (String s: cobras) {
             addAnimalZoo(s);
         }
 
-        for (String s: Crocodiles) {
+        for (String s: crocodiles) {
             addAnimalZoo(s);
         }
     }
